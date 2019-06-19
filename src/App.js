@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Joke from './jokes/Joke';
+import jokesData from "./jokes/jokesData"
 
 function App() {
+
+  const date = new Date(2018, 6, 31, 15)
+  const hours = date.getHours()
+  let timeOfDay
+  const styles = {
+    fontSize: 30
+  }
+  
+  if (hours < 12) {
+    timeOfDay = "morning"
+    styles.color = "#04756F"
+  } else if (hours >= 12 && hours < 17) {
+    timeOfDay = "afternoon"
+    styles.color = "#8914A3"
+  } else {
+    timeOfDay = "night"
+    styles.color = "#D90000"
+  }
+  
+  const jokeComponents = jokesData.map(joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1 style={styles}>Good {timeOfDay}!</h1>
+      {jokeComponents}
     </div>
-  );
+  )
 }
 
 export default App;
