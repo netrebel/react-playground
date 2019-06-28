@@ -2,8 +2,6 @@ import React from 'react';
 import './App.css';
 import Joke from './jokes/Joke';
 import jokesData from "./jokes/jokesData"
-import TodoItem from "./todos/TodoItem"
-import todosData from "./todos/todosData"
 
 function App() {
 
@@ -26,13 +24,11 @@ function App() {
   }
   
   const jokeComponents = jokesData.map(joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />)
-  const todoItems = todosData.map(item => <TodoItem key={item.id} item={item}/>)
     
   return (
     <div>
       <h1 style={styles}>Good {timeOfDay}!</h1>
       {jokeComponents}
-      {todoItems}
     </div>
   )
 }
