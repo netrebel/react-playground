@@ -56,7 +56,7 @@ class App extends React.Component {
                 styles.color = "#D90000"
                 break;
             default:
-               styles.color = ""
+                styles.color = ""
         }
 
         const jokeComponents = jokesData.map(joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />)
@@ -66,7 +66,7 @@ class App extends React.Component {
                 <h3>{this.state.age} years old</h3>
                 <h1 style={styles}>Good {timeOfDayMessage}!</h1>
 
-                { this.state.isLoading ? <h1>Loading...</h1> : jokeComponents }
+                {this.state.isLoading && jokeComponents.length > 0 ? <h1>Loading... {jokeComponents.length} jokes</h1> : jokeComponents}
             </div>
         )
     }
