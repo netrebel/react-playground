@@ -12,10 +12,13 @@ class App extends React.Component {
                 fontSize: 30
             },
             isLoading: true,
-            status: false
+            status: false,
+            firstName: "",
+            lastName: ""
         }
         this.timeOfDayMessage = this.timeOfDayMessage.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
+        this.handleChange = this.handleChange.bind(this)
     }
 
     handleOnClick() {
@@ -54,6 +57,13 @@ class App extends React.Component {
         return timeOfDay;
     }
 
+    handleChange(event) {
+        const {name, value} = event.target
+        this.setState({
+            [name]: value
+        })
+    }
+
     render() {
         const styles = {
             fontSize: 30
@@ -80,6 +90,25 @@ class App extends React.Component {
                 <h1>Hi {this.state.character.name}</h1>
                 <h1 style={styles}>Good {timeOfDayMessage}!</h1>
                 <button onClick={this.handleOnClick}>{buttonText}</button>
+
+                <form>
+                    <input
+                        type="text"
+                        value={this.state.firstName}
+                        name="firstName"
+                        placeholder="First Name"
+                        onChange={this.handleChange}
+                    />
+                    <br />
+                    <input
+                        type="text"
+                        value={this.state.lastName}
+                        name="lastName"
+                        placeholder="Last Name"
+                        onChange={this.handleChange}
+                    />
+                    <h1>{this.state.firstName} {this.state.lastName}</h1>
+                </form>
 
                 {this.state.isLoading && jokeComponents.length > 0 ? <h1>Loading... {jokeComponents.length} jokes</h1> : jokeComponents}
             </div>
