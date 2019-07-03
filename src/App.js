@@ -7,8 +7,7 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            name: "Miguel",
-            age: "38",
+            character: {},
             styles: {
                 fontSize: 30
             },
@@ -29,11 +28,15 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                isLoading: false
+        fetch("https://swapi.co/api/people/1")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    isLoading: false,
+                    character: data
+                })
             })
-        }, 1500)
     }
 
     timeOfDayMessage() {
@@ -74,8 +77,7 @@ class App extends React.Component {
         const buttonText = (!this.state.status) ? 'Log in' : 'Log out';
         return (
             <div>
-                <h1>{this.state.name}</h1>
-                <h3>{this.state.age} years old</h3>
+                <h1>Hi {this.state.character.name}</h1>
                 <h1 style={styles}>Good {timeOfDayMessage}!</h1>
                 <button onClick={this.handleOnClick}>{buttonText}</button>
 
