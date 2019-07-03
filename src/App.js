@@ -12,9 +12,20 @@ class App extends React.Component {
             styles: {
                 fontSize: 30
             },
-            isLoading: true
+            isLoading: true,
+            status: false
         }
         this.timeOfDayMessage = this.timeOfDayMessage.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
+    }
+
+    handleOnClick() {
+        this.setState((prevState) => {
+            console.log(prevState)
+            return {
+                status: !prevState.status
+            }
+        })
     }
 
     componentDidMount() {
@@ -59,12 +70,14 @@ class App extends React.Component {
                 styles.color = ""
         }
 
-        const jokeComponents = jokesData.map(joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />)
+        const jokeComponents = jokesData.map(joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />);
+        const buttonText = (!this.state.status) ? 'Log in' : 'Log out';
         return (
             <div>
                 <h1>{this.state.name}</h1>
                 <h3>{this.state.age} years old</h3>
                 <h1 style={styles}>Good {timeOfDayMessage}!</h1>
+                <button onClick={this.handleOnClick}>{buttonText}</button>
 
                 {this.state.isLoading && jokeComponents.length > 0 ? <h1>Loading... {jokeComponents.length} jokes</h1> : jokeComponents}
             </div>
