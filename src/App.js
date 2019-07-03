@@ -11,9 +11,18 @@ class App extends React.Component {
             age: "38",
             styles: {
                 fontSize: 30
-            }
+            },
+            isLoading: true
         }
         this.timeOfDayMessage = this.timeOfDayMessage.bind(this);
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                isLoading: false
+            })
+        }, 1500)
     }
 
     timeOfDayMessage() {
@@ -46,6 +55,8 @@ class App extends React.Component {
             case 'night':
                 styles.color = "#D90000"
                 break;
+            default:
+               styles.color = ""
         }
 
         const jokeComponents = jokesData.map(joke => <Joke key={joke.id} question={joke.question} punchLine={joke.punchLine} />)
@@ -54,7 +65,8 @@ class App extends React.Component {
                 <h1>{this.state.name}</h1>
                 <h3>{this.state.age} years old</h3>
                 <h1 style={styles}>Good {timeOfDayMessage}!</h1>
-                {jokeComponents}
+
+                { this.state.isLoading ? <h1>Loading...</h1> : jokeComponents }
             </div>
         )
     }
